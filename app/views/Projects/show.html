@@ -1,0 +1,66 @@
+<div>
+  <div class="alert alert-success"ng-repeat="successe in successes">
+    <p>{{successe}}</p>
+  </div>
+
+  <div>
+    <h3>Présentation du projet: </h3>
+
+    <div class="form-group">
+      <label for="title">Titre:</label>
+      <input type="text" id="title" class="form-control" name="title" ng-model="project.title"/>
+    </div>
+
+    <div class="form-group">
+      <label for="description">description: </label>
+      <input type="text" id="description" class="form-control" name="description" ng-model="project.description"/>
+    </div>
+
+    <div class="form-group">
+      <label for="year">année: </label>
+      <input type="text" id="year" class="form-control" name="year" ng-model="project.year"/>
+    </div>
+
+    <div ng-if="project.id">
+      <div class="form-group">
+        <label for="createdAt">createdAt: </label>
+        <label id="createdAt" class="form-control">{{project.createdAt}}</label>
+      </div>
+      <div class="form-group">
+        <label for="updatedAt">updatedAt: </label>
+        <label id="updatedAt" class="form-control">{{project.updatedAt}}</label>
+      </div>
+    </div>
+
+    <div>
+      <span ng-if="project.id">
+        <input class="btn btn-danger" type="button" value="supprimer ce projet" ng-click="deleteAProject()"/>
+        <input class="btn btn-primary" type="button" value="changer ce projet" ng-click="changeAProject()"/>
+      </span>
+      <input type="button" class="btn btn-success" value="rajouter ce projet" ng-click="addAProject()"/>
+    </div>
+  </div>
+
+
+  <div>
+    <h3>liste des utilisatisateurs:</h3>
+    <form>
+      <input ng-show="! addMode" class="btn btn-info" type="button" value="ajouter un utilisateur" ng-click="addUsersToProject()"/>
+      <input ng-if="! removeMode" class="btn btn-info" type="button" value="supprimer un utilisateur" ng-click="removeUsersToProject()"/>
+      <input ng-if="addMode || removeMode" class="btn btn-warning" type="button" value="revenir a l'affichage precedent" ng-click="resetUsersToProject()"/>
+
+      <input type="text" ng-model="inputUser" value=""/>
+      <ul>
+        <div ng-repeat="dataUser in dataUsers | filter:inputUser">
+
+          <li ng-if="dataUser.accepted || addMode">
+            <input ng-show="addMode && (! dataUser.accepted)" class="btn btn-success" type="button" value="add" ng-click="addUserToProject(dataUser.user.id)"/>
+            <input ng-show="removeMode && dataUser.accepted" class="btn btn-danger" type="button" value="remove" ng-click="removeUserToProject(dataUser.user.id)"/>
+            <a ng-href="#users/{{dataUser.user.id}}">{{dataUser.user.name}}, {{dataUser.user.surname}}</a>
+          </li>
+
+        </div>
+      </ul>
+    </form>
+  </div>
+</div>

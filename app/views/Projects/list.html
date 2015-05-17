@@ -1,0 +1,13 @@
+<div>
+  <a class="btn btn-info" ng-href="#/newProject">nouveau projet</a>
+
+  <h3>Liste des projets:</h3>
+  <ul>
+    <form>
+      <input type="text" ng-model="inputProject" value=""/>
+    </form>
+    <li ng-repeat="project in projects | filter:inputProject">
+      <a ng-href="#projects/{{project.id}}">{{project.title}}, {{project.description}}</a>
+    </li>
+  </ul>
+</div>
